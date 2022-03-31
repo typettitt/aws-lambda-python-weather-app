@@ -1,0 +1,26 @@
+[
+   {
+      "type": "section",
+      "text": {
+         "type": "mrkdwn",
+         "text": "Hey there :wave: I'm Chat Bot. Here are a few pointers on receiving weather data."
+      }
+   },
+   {
+      "type": "section",
+      "text": {
+         "type": "mrkdwn",
+         "text": "Use the `/weather` slash command to receive weather information"
+      }
+   },
+   {
+      "type": "divider"
+   },
+   {
+      "type": "section",
+      "text": {
+         "type": "mrkdwn",
+         "text": "Supply the following arguments: `/weather {action} {location}`\nAvailable actions: `current`, `alerts`, `air`, and `help`\n For location, try zip codes or named locations(ex. 68135, Des Moines, IA, etc.)!"
+      }
+   }
+]

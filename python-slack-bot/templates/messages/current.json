@@ -1,0 +1,19 @@
+[
+  {
+    "type": "section",
+    "text": {
+      "type": "mrkdwn",
+      "text": "Here are the current weather conditions in "
+    }
+  },
+  {
+    "type": "divider"
+  },
+  {
+    "type": "section",
+    "text": {
+      "type": "mrkdwn",
+      "text": "```INSERT CONDITIONS HERE```"
+    }
+  }
+]

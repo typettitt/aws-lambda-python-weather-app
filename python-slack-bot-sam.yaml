@@ -1,0 +1,33 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: 'AWS::Serverless-2016-10-31'
+Description: >-
+  A function that handles a Slack slash command and echoes the details back to
+  the user.
+Resources:
+  pythonslackbot:
+    Type: 'AWS::Serverless::Function'
+    Properties:
+      Handler: lambda_function.lambda_handler
+      Runtime: python3.8
+      CodeUri: .
+      Description: >-
+        A function that handles a Slack slash command and echoes the details
+        back to the user.
+      MemorySize: 128
+      Timeout: 3
+      Role: >-
+        this is the role that needs 'kms:Decrypt' permissions
+      Events:
+        Api1:
+          Type: Api
+          Properties:
+            Path: /python-slack-bot
+            Method: ANY
+      Environment:
+        Variables:
+          SLACK_BOT_TOKEN: xoxb-CHANGEME
+          WEATHER_API_KEY: CHANGME
+          KMS_ENCRYPTED_TOKEN: >-
+            CHANGEME
+      Tags:
+        'lambda-console:blueprint': slack-echo-command-python
