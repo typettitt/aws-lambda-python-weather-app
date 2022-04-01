@@ -8,10 +8,10 @@
 - Use `/weather help` to display slash command functionality in its entirety
 
 ## Demos
-1. <a href="https://youtu.be/jnVGgDovTSI" target="_blank">/weather help</a>
-2. <a href="https://youtu.be/n_evkQKtDpw" target="_blank">/weather alerts</a>
-3. <a href="https://youtu.be/Wg1HP4oW4gE" target="_blank">/weather air</a>
-4. <a href="https://youtu.be/xbVbOhGUuP4" target="_blank">/weather current</a>
+1. [/weather help](https://youtu.be/jnVGgDovTSI)
+2. [/weather alerts](https://youtu.be/n_evkQKtDpw)
+3. [/weather air](https://youtu.be/Wg1HP4oW4gE)
+4. [/weather current](https://youtu.be/xbVbOhGUuP4)
 
 ## Architecture Graph
 ```mermaid
