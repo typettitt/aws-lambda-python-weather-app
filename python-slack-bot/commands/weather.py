@@ -1,16 +1,13 @@
 import json
 import re
 import urllib3
-from config import Config
 from typing import Optional
+from commands import config
 
 
 class Weather:
     def __init__(self, params):
-        self.config = Config()
         self.params = params
-        self.user = self.params["user_name"][0]
-        self.command = self.params["command"][0]
         self.user = self.params["user_id"][0]
         self.http = urllib3.PoolManager()
         self.location = "68701"
@@ -42,16 +39,14 @@ class Weather:
             5: "Very Unhealthy",
             6: "Hazardous",
         }
-        url = f"{self.config.WEATHER_API_BASE_URL}/current.json?key={self.config.WEATHER_API_KEY}&q={self.location[0]}&aqi=yes"
+        url = f"{config.WEATHER_API_BASE_URL}/current.json?key={config.WEATHER_API_KEY}&q={self.location[0]}&aqi=yes"
         r = self.http.request("GET", url)
         weather_data = json.loads(r.data.decode("utf-8"))
         air = weather_data["current"]["air_quality"]
         city = weather_data["location"]["name"]
         state = weather_data["location"]["region"]
         location = f"{city}, {state}"
-        blocks = json.load(
-            open(f"{self.config.MESSAGES_TEMPLATES_PATH}/air_quality.json")
-        )
+        blocks = json.load(open(f"{config.MESSAGES_TEMPLATES_PATH}/air_quality.json"))
         air_quality_data = f"""```
         EPA Index: {epa_severity[air["us-epa-index"]]}
         Carbon Monoxide (μg/m3): {air["co"]}
@@ -64,10 +59,10 @@ class Weather:
         return self._send_slack_ephemeral(blocks, text)
 
     def alerts(self):
-        url = f"{self.config.WEATHER_API_BASE_URL}/forecast.json?key={self.config.WEATHER_API_KEY}&q={self.location[0]}&days=1&aqi=no&alerts=yes"
+        url = f"{config.WEATHER_API_BASE_URL}/forecast.json?key={config.WEATHER_API_KEY}&q={self.location[0]}&days=1&aqi=no&alerts=yes"
         r = self.http.request("GET", url)
         weather_data = json.loads(r.data.decode("utf-8"))
-        blocks = json.load(open(f"{self.config.MESSAGES_TEMPLATES_PATH}/alerts.json"))
+        blocks = json.load(open(f"{config.MESSAGES_TEMPLATES_PATH}/alerts.json"))
         city = weather_data["location"]["name"]
         state = weather_data["location"]["region"]
         location = f"{city}, {state}"
@@ -94,9 +89,10 @@ class Weather:
         return self._send_slack_ephemeral(blocks, text)
 
     def current(self):
-        url = f"{self.config.WEATHER_API_BASE_URL}/current.json?key={self.config.WEATHER_API_KEY}&q={self.location[0]}&aqi=no"
-        weather_data = json.loads(self._send_request("GET", url))
-        blocks = json.load(open(f"{self.config.MESSAGES_TEMPLATES_PATH}/current.json"))
+        url = f"{config.WEATHER_API_BASE_URL}/current.json?key={config.WEATHER_API_KEY}&q={self.location[0]}&aqi=no"
+        r = self.http.request("GET", url)
+        weather_data = json.loads(r.data.decode("utf-8"))
+        blocks = json.load(open(f"{config.MESSAGES_TEMPLATES_PATH}/current.json"))
         city = weather_data["location"]["name"]
         state = weather_data["location"]["region"]
         location = f"{city}, {state}"
@@ -115,12 +111,12 @@ class Weather:
         return self._send_slack_ephemeral(blocks, text)
 
     def help(self):
-        blocks = json.load(open(f"{self.config.MESSAGES_TEMPLATES_PATH}/help.json"))
+        blocks = json.load(open(f"{config.MESSAGES_TEMPLATES_PATH}/help.json"))
         text = "Help Request Received!"
         return self._send_slack_ephemeral(blocks, text)
 
     def _send_slack_ephemeral(self, blocks: dict, text: str):
-        auth_token = self.config.SLACK_BOT_TOKEN
+        auth_token = config.SLACK_BOT_TOKEN
         headers = {
             "Authorization": "Bearer " + auth_token,
             "Content-Type": "application/json",
