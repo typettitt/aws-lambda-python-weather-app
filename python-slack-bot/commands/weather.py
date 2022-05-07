@@ -46,7 +46,9 @@ class Weather:
         city = weather_data["location"]["name"]
         state = weather_data["location"]["region"]
         location = f"{city}, {state}"
-        blocks = json.load(open(f"{config.MESSAGES_TEMPLATES_PATH}/air_quality.json"))
+        blocks = json.load(
+            open(f"{config.MESSAGES_TEMPLATES_PATH}/air_quality.json")
+        )
         air_quality_data = f"""```
         EPA Index: {epa_severity[air["us-epa-index"]]}
         Carbon Monoxide (μg/m3): {air["co"]}

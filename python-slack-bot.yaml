@@ -8,7 +8,7 @@ Resources:
     Type: 'AWS::Serverless::Function'
     Properties:
       Handler: lambda_function.lambda_handler
-      Runtime: python3.8
+      Runtime: python3.9
       CodeUri: .
       Description: >-
         A function that handles a Slack slash command and echoes the details
@@ -25,9 +25,9 @@ Resources:
             Method: ANY
       Environment:
         Variables:
-          SLACK_BOT_TOKEN: xoxb-CHANGEME
-          WEATHER_API_KEY: CHANGME
           KMS_ENCRYPTED_TOKEN: >-
             CHANGEME
+          SLACK_BOT_TOKEN: xoxb-CHANGEME
+          WEATHER_API_KEY: CHANGEME
       Tags:
         'lambda-console:blueprint': slack-echo-command-python
