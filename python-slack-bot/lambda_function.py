@@ -42,7 +42,6 @@ def respond(err, res=None):
 def lambda_handler(event, context):
     logger.info(context)
     params = parse_qs(event["body"])
-    print(params)
     token = params["token"][0]
     if token != expected_token:
         logger.error("Request token (%s) does not match expected", token)
